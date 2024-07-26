@@ -1,0 +1,62 @@
+<div class="terminal" #terminal>
+  <div class="terminal__bar">
+    <div class="terminal__bar__actions">
+      <div class="terminal__bar__actions__close"
+           (click)="handleClose()"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+      <div class="terminal__bar__actions__resize"
+           (click)="handleResize(terminal)"
+      >
+        @if (!document.fullscreenElement) {
+          <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+        }
+        @if (!!document.fullscreenElement) {
+          <i class="fa-solid fa-down-left-and-up-right-to-center"></i>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="terminal__body" #terminalBody>
+    @for (object of getResolvedItems(output()); track object.value; let i = $index) {
+      <div class="terminal__body__row"
+           [class.terminal__body__row--even]="(i + 1) % 2"
+           *ngIf="object.label"
+      >
+        {{ object.label }}
+      </div>
+    }
+  </div>
+  <div class="terminal__body__row terminal__body__input-row">
+      <span class="terminal___body__input-row__label">
+        <i class="fa-solid fa-folder-open"></i>
+        ~/hello_verso/i_want_this_job
+      </span>
+    <form>
+      <input [formControl]="inputFormControl"
+             #terminalInput
+             type="text"
+      />
+      @if ((isStopped | async) || (terminalService.currentNumber | async) === (terminalService.countTo | async)) {
+        <button type="button"
+                (click)="continueOrResetOutput()"
+                class="successColor"
+        >
+          {{ (terminalService.currentNumber | async) !== (terminalService.countTo | async) ?
+          'Continue' : 'Reset' }}
+        </button>
+      }
+      @if (inputFormControl.value?.toLowerCase() === 'stop' && !(isStopped | async)
+      && (terminalService.currentNumber | async) !== (terminalService.countTo | async)) {
+        <button
+          type="button"
+          (click)="stopOutput()"
+          class="errorColor"
+        >
+          Stop
+        </button>
+      }
+    </form>
+  </div>
+</div>

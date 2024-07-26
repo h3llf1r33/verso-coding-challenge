@@ -1,0 +1,152 @@
+\:host
+  display: flex
+  max-width: 80%
+  width: 100%
+  &.is-fullscreen
+    .terminal .terminal__body
+      height: calc(100% - 35px)
+
+.terminal
+  width: 100%
+  margin: auto
+  max-height: 20rem
+  overflow: hidden
+  border-radius: .5rem
+  border: 1px solid dimgrey
+  position: relative
+  padding-top: 2rem
+  background-color: #1e1e1e
+
+  &.terminal--fullscreen
+    max-width: unset
+    max-height: unset
+
+  .terminal__body__row
+    padding: .25rem .35rem
+    color: white
+    font-size: .85rem
+    display: flex
+    align-items: center
+    position: relative
+
+    &.terminal__body__row--even
+      background-color: rgba(128, 128, 128, .1)
+
+    &.terminal__body__input-row
+      display: grid
+      grid-template-columns: fit-content(100%) 1fr
+
+      form
+        display: flex
+        min-height: 27px
+
+        button
+          background: transparent
+          font-weight: 700
+          font-size: .75rem
+          border-width: 1px
+          border-style: solid
+          padding: .25rem .65rem
+          margin-top: .075rem
+          border-radius: .35rem
+          cursor: pointer
+          &.errorColor
+            color: indianred
+            border-color: indianred
+          &.successColor
+            color: darkseagreen
+            border-color: darkseagreen
+
+    .terminal___body__input-row__label
+      font-weight: 700
+      color: cornflowerblue
+
+      i:first-of-type
+        color: white
+        margin-right: .35rem
+
+      i:last-of-type
+        font-size: .7rem
+        margin-right: .125rem
+
+    form
+      width: 100%
+
+      input
+        background: transparent
+        border: none
+        margin-left: .5rem
+        width: 100%
+        color: white
+        padding-top: .2rem
+
+        &:focus-visible, &:focus
+          ::before
+            display: none
+            animation: none
+          outline: none
+
+  .terminal__body
+    display: flex
+    flex-direction: column
+    overflow-y: scroll
+    height: 15rem
+
+  .terminal__bar
+    display: flex
+    position: absolute
+    left: 0
+    right: 0
+    top: 0
+    width: 100%
+    height: 2rem
+    background-color: #383836
+    padding-left: .35rem
+    padding-right: .35rem
+
+    .terminal__bar__actions
+      --terminal-bar-action--size: .75rem
+      display: flex
+      flex-direction: row
+      align-items: center
+      gap: .5rem
+
+      > div
+        border-radius: 50%
+        height: var(--terminal-bar-action--size)
+        width: var(--terminal-bar-action--size)
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+
+        i
+          color: transparent
+
+      &:hover
+        > div i
+          color: rgba(0, 0, 0, .625)
+
+      .terminal__bar__actions__close
+        background-color: indianred
+
+        i
+          font-size: .7rem
+          width: 8.5px
+          height: 10.5px
+
+      .terminal__bar__actions__minimize
+        background-color: #febc2e
+
+        i
+          font-size: .7rem
+          width: 10px
+          height: 10px
+
+      .terminal__bar__actions__resize
+        background-color: limegreen
+
+        i
+          width: 15px
+          height: 16px
+          scale: .45
